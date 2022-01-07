@@ -46,11 +46,13 @@ public class AddToDoActivity extends AppCompatActivity {
                     String testName = editTextToDo.getText().toString();
                     //todos.add(new Todo(testName, "testUrgence1"));
                     Todo toDo1 = new Todo (testName, "testUrgence1");
+                    todos.add(toDo1);
                     //Log.d(TAG,"Todo added - Name = " + toDo1.getName() +" - Urgency = " + toDo1.getUrgency());
                     Log.d(TAG,"Todo added - Name = ");
 
+                    String toDo = toDo1.getName()+" // "+toDo1.getUrgency();
                     Intent intent=new Intent();
-                    intent.putExtra("Name : ",toDo1.getName());
+                    intent.putExtra("To Do : ",toDo);
 
                     setResult(1,intent);
                     finish();

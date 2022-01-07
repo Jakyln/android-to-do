@@ -106,9 +106,10 @@ public class MainActivity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==1)
         {
-            Log.d(TAG,"la data du todo :  "+data);
-            String message=data.getStringExtra("Name : "); //attention, le string doit etre le meme que celui inséré dans le Intent dans AddToDoAcTivity
-            tvTodos.setText(message);
+            String message=data.getStringExtra("To Do : "); //attention, le string doit etre le meme que celui inséré dans le Intent dans AddToDoAcTivity
+            //tvTodos.setText(message);
+            tvTodos.append("\n");
+            tvTodos.append(message);
         }
     }
 
