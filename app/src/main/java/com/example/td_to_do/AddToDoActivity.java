@@ -7,17 +7,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.td_to_do.pojos.Todo;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class AddToDoActivity extends AppCompatActivity {
+public class AddToDoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button btnAdd;
     private Button btnCancel;
     private EditText editTextToDo;
@@ -36,26 +41,54 @@ public class AddToDoActivity extends AppCompatActivity {
         editTextToDo  = (EditText)findViewById(R.id.editTextToDo);
         spUrgency = findViewById(R.id.spUrgency);
 
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.urgencies,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spUrgency.setAdapter(adapter);
+        spUrgency.setOnItemSelectedListener(this);
+
+        /*String[] plants = new String[]{
+                "Low urgency",
+                "Normal urgency",
+                "High urgency"
+        };
+
+        final List<String>urgencyList = new ArrayList<>(Arrays.asList(plants));*/
+
+        // Initializing an ArrayAdapter
+        /*final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,urgencyList);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spUrgency.setAdapter(spinnerArrayAdapter);*/
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //String textgdd = editTextToDo.getEditText().ToString();
 
                 if(editTextToDo.getText().toString()!=""){
-                    //on check si user a rien ecrit
-                    String testName = editTextToDo.getText().toString();
-                    //todos.add(new Todo(testName, "testUrgence1"));
-                    Todo toDo1 = new Todo (testName, "testUrgence1");
-                    todos.add(toDo1);
-                    //Log.d(TAG,"Todo added - Name = " + toDo1.getName() +" - Urgency = " + toDo1.getUrgency());
-                    Log.d(TAG,"Todo added - Name = ");
+                    if(editTextToDo.getText().toString().length()>3){
+                        //on check si user a rien ecrit
+                        String testName = editTextToDo.getText().toString();
+                        //todos.add(new Todo(testName, "testUrgence1"));
+                        String urgencyItem = spUrgency.getSelectedItem().toString();
 
-                    String toDo = toDo1.getName()+" // "+toDo1.getUrgency();
-                    Intent intent=new Intent();
-                    intent.putExtra("To Do : ",toDo);
+                        Todo toDo1 = new Todo (testName, urgencyItem);
+                        todos.add(toDo1);
+                        //Log.d(TAG,"Todo added - Name = " + toDo1.getName() +" - Urgency = " + toDo1.getUrgency());
+                        Log.d(TAG,"Todo added - Name = ");
 
-                    setResult(1,intent);
-                    finish();
+                        String toDo = toDo1.getName()+" // "+toDo1.getUrgency(); //Je met le nom et l'urgence dans un même string, puis je l'envoie
+                        Intent intent=new Intent();
+                        intent.putExtra("To Do : ",toDo);
+
+                        setResult(1,intent);
+                        finish();
+                    }
+                    else{
+                        Toast toast = Toast.makeText(getApplicationContext(), "Nom trop petit", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
 
                 }
                 else{
@@ -118,5 +151,16 @@ public class AddToDoActivity extends AppCompatActivity {
         /*outState.putInt(KEY_INDEX, indexQuestion);
         outState.putInt(KEY_SCORE, score);*/
         //outState.putBoolean(KEY_REPLAY, btnReplay.getVisibility() == View.VISIBLE ? true : false);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String urgency = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(adapterView.getContext(),urgency,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

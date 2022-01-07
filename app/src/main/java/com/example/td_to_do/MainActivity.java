@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_INDEX = "index";
     private static final String KEY_add = "add";
     public static final String KEY_TODO = "todo";
+    private boolean isEmpty = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,36 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
         // on récupère les léments du layout
         tvTodos = findViewById(R.id.tvTodos);
-
-
-
-        // ajoute les TODOS à la liste
-        /*todos.add(new Todo("testtest1", "testUrgence1"));
-        todos.add(new Todo("testtest2", "testUrgence2"));
-        todos.add(new Todo("testtest3", "testUrgence3"));*/
-
-        /*if(todos.isEmpty()){
+        /*if(isEmpty){
             tvTodos.setText("PAS DE TACHES");
             tvTodos.append("\n");
-            tvTodos.append("Pour ajouter une tache, appuyer sur le bouton 'Add To Do'");
-        }
-        else{
-            for (Todo unTodo: todos ) {
-                tvTodos.append("\n");
-                tvTodos.append(unTodo.getName());
-                tvTodos.append("//");
-                tvTodos.append(unTodo.getUrgency());
-                tvTodos.append("\n");
-                //tvScore.setText(String.format("Score : %d", score));
-        }
-
-
+            tvTodos.append("Pour ajouter une tache, appuyer sur 'Add To Do'");
+        }*/
+        /*if(tvTodos.getText().toString().equals("")){
+            tvTodos.setText("PAS DE TACHES");
+            tvTodos.append("\n");
+            tvTodos.append("Pour ajouter une tache, appuyer sur 'Add To Do'");
         }*/
 
 
 
+
     }
-//pour afficher l'autre vue
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //crée le menu
@@ -77,16 +64,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //Lorsqu'on choisit le add to do
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuItemAddToDo:
-                /*Intent intent = new Intent(getApplicationContext(), AddToDoActivity.class);
-
-                intent.putExtra(KEY_TODO, todo);
-
-                startActivity(intent);
-                ;*/ //code orig
 
                 Intent intent=new Intent(MainActivity.this,AddToDoActivity.class);
                 startActivityForResult(intent, 1);// Activity is started with requestCode 2
@@ -98,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Call Back method  to get the Message form other Activity
+    // Recupere le to do de l'autre activité
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -106,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==1)
         {
+            //isEmpty=false;
             String message=data.getStringExtra("To Do : "); //attention, le string doit etre le meme que celui inséré dans le Intent dans AddToDoAcTivity
             //tvTodos.setText(message);
             tvTodos.append("\n");
