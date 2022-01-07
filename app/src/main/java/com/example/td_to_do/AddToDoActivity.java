@@ -1,7 +1,9 @@
 package com.example.td_to_do;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,10 +44,16 @@ public class AddToDoActivity extends AppCompatActivity {
                 if(editTextToDo.getText().toString()!=""){
                     //on check si user a rien ecrit
                     String testName = editTextToDo.getText().toString();
-                    todos.add(new Todo(testName, "testUrgence1"));
-                    //Todou toDo1 = new Todoj (testName, "testUrgence1");
+                    //todos.add(new Todo(testName, "testUrgence1"));
+                    Todo toDo1 = new Todo (testName, "testUrgence1");
                     //Log.d(TAG,"Todo added - Name = " + toDo1.getName() +" - Urgency = " + toDo1.getUrgency());
                     Log.d(TAG,"Todo added - Name = ");
+
+                    Intent intent=new Intent();
+                    intent.putExtra("Name : ",toDo1.getName());
+
+                    setResult(1,intent);
+                    finish();
 
                 }
                 else{
@@ -53,6 +61,60 @@ public class AddToDoActivity extends AppCompatActivity {
                 }
 
             }
+
+
         });
+
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        Log.d(TAG,"onStart() called");
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        Log.d(TAG,"onResume() called");
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        Log.d(TAG,"onPause() called");
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+        Log.d(TAG,"onStop() called");
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+
+        Log.d(TAG,"onRestart() called");
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        Log.d(TAG,"onDestroy() called");
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Log.d(TAG, "onSaveInstanceState() called");
+
+        /*outState.putInt(KEY_INDEX, indexQuestion);
+        outState.putInt(KEY_SCORE, score);*/
+        //outState.putBoolean(KEY_REPLAY, btnReplay.getVisibility() == View.VISIBLE ? true : false);
     }
 }

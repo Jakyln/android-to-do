@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         todos.add(new Todo("testtest2", "testUrgence2"));
         todos.add(new Todo("testtest3", "testUrgence3"));*/
 
-        if(todos.isEmpty()){
+        /*if(todos.isEmpty()){
             tvTodos.setText("PAS DE TACHES");
             tvTodos.append("\n");
             tvTodos.append("Pour ajouter une tache, appuyer sur le bouton 'Add To Do'");
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        }
+        }*/
 
 
 
@@ -81,18 +81,39 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuItemAddToDo:
-                Intent intent = new Intent(getApplicationContext(), AddToDoActivity.class);
+                /*Intent intent = new Intent(getApplicationContext(), AddToDoActivity.class);
 
                 intent.putExtra(KEY_TODO, todo);
 
                 startActivity(intent);
+                ;*/ //code orig
+
+                Intent intent=new Intent(MainActivity.this,AddToDoActivity.class);
+                startActivityForResult(intent, 1);// Activity is started with requestCode 2
                 return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
 
-        @Override
+    // Call Back method  to get the Message form other Activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(requestCode==1)
+        {
+            Log.d(TAG,"la data du todo :  "+data);
+            String message=data.getStringExtra("Name : "); //attention, le string doit etre le meme que celui inséré dans le Intent dans AddToDoAcTivity
+            tvTodos.setText(message);
+        }
+    }
+
+
+    @Override
     protected void onStart(){
         super.onStart();
 
