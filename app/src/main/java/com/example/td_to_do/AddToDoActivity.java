@@ -100,6 +100,18 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
         });
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddToDoActivity.this,MainActivity.class);
+                startActivity(intent);
+
+
+            }
+
+
+        });
+
     }
     @Override
     protected void onStart(){
