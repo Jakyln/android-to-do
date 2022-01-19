@@ -1,6 +1,7 @@
 package com.example.td_to_do;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         spUrgency = findViewById(R.id.spUrgency);
 
 
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.urgencies,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spUrgency.setAdapter(adapter);
@@ -59,6 +61,10 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         /*final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,urgencyList);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spUrgency.setAdapter(spinnerArrayAdapter);*/
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +119,16 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
         });
 
+
+
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     @Override
     protected void onStart(){
         super.onStart();
