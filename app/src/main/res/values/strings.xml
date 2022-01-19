@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">td_to_do</string>
+    <string-array name="urgencies">
+        <item>Low Urgency</item>
+        <item>Normal Urgency</item>
+        <item>High Urgency</item>
+
+    </string-array>
+</resources>
