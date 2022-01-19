@@ -3,7 +3,7 @@ package com.example.td_to_do.pojos;
 import java.io.Serializable;
 
 public class Todo implements Serializable {
-    private int id;
+    private long id;
     private String name;
     private String urgency;
 
@@ -15,17 +15,18 @@ public class Todo implements Serializable {
         this.urgency = urgency;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
