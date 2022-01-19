@@ -72,16 +72,16 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
                         //todos.add(new Todo(testName, "testUrgence1"));
                         String urgencyItem = spUrgency.getSelectedItem().toString();
 
-                        Todo toDo1 = new Todo (testName, urgencyItem);
-                        todos.add(toDo1);
+                        Todo todo = new Todo (testName, urgencyItem);
+                        todos.add(todo);
                         //Log.d(TAG,"Todo added - Name = " + toDo1.getName() +" - Urgency = " + toDo1.getUrgency());
                         Log.d(TAG,"Todo added - Name = ");
 
-                        String toDo = toDo1.getName()+" // "+toDo1.getUrgency(); //Je met le nom et l'urgence dans un même string, puis je l'envoie
+                        String toDo = todo.getName()+" // "+todo.getUrgency(); //Je met le nom et l'urgence dans un même string, puis je l'envoie
                         Intent intent=new Intent();
-                        intent.putExtra("To Do : ",toDo);
+                        intent.putExtra("To Do : ",todo);
 
-                        setResult(1,intent);
+                        setResult(RESULT_OK,intent);
                         finish();
                     }
                     else{
@@ -103,8 +103,9 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddToDoActivity.this,MainActivity.class);
-                startActivity(intent);
+                Intent resultIntent = new Intent();
+                setResult(RESULT_CANCELED, resultIntent);
+                finish();
 
 
             }
